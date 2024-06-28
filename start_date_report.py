@@ -4,8 +4,10 @@ import csv
 import datetime
 import requests
 
+# Get the data file from the original source
 FILE_URL = "https://storage.googleapis.com/gwg-content/gic215/employees-with-date.csv"
 
+# Get the user inputs: year, month, day 
 def get_start_date():
   """Interactively get the start date to query for."""
   print()
@@ -19,6 +21,7 @@ def get_start_date():
 
   return datetime.datetime(year, month, day)
 
+# Read the lines in the data file
 def get_file_lines(url):
   """Returns the lines contained in the file at the given URL"""
 
@@ -30,6 +33,7 @@ def get_file_lines(url):
     lines.append(line.decode("UTF-8"))
   return lines
 
+# 
 def get_same_or_newer(start_date, reader):
     """Returns the employees that started on the given date, or the closest one."""
     #data = get_file_lines(FILE_URL)
@@ -64,6 +68,7 @@ def get_same_or_newer(start_date, reader):
 
     return min_date, min_date_employees
 
+# Preprocess the data to sort the list
 def preprocess_data(data):
     import operator
     data = get_file_lines(FILE_URL)
@@ -71,6 +76,7 @@ def preprocess_data(data):
     sortedlist = sorted(reader, key=operator.itemgetter(3), reverse=False)
     return sortedlist
 
+# Update the lines for matching data lines
 def list_newer(start_date):
     #data = get_file_lines(FILE_URL)
     reader = preprocess_data(get_file_lines(FILE_URL))
