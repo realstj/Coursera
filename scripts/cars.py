@@ -13,11 +13,9 @@ def load_data(filename):
     data = json.load(json_file)
   return data
 
-
 def format_car(car):
   """Given a car dictionary, returns a nicely formatted name."""
   return "{} {} ({})".format(car["car_make"], car["car_model"], car["car_year"])
-
 
 def process_data(data):
   """Analyzes the data, looking for maximums.
@@ -57,14 +55,12 @@ def process_data(data):
 
   return summary
 
-
 def cars_dict_to_table(car_data):
   """Turns the data in car_data into a list of lists."""
   table_data = [["ID", "Car", "Price", "Total Sales"]]
   for item in car_data:
     table_data.append([item["id"], format_car(item["car"]), item["price"], item["total_sales"]])
   return table_data
-
 
 def main(argv):
   """Process the JSON data and generate a full report out of it."""
@@ -75,7 +71,7 @@ def main(argv):
   reports.generate('/tmp/cars.pdf', "Cars report", '<br/>'.join(summary), cars_dict_to_table(data))
 
   # TODO: send the PDF report as an email attachment
-  msg = emails.generate("automation@example.com", "student@example.com", "Sales summary for last month", '<br/>'.join(summary), "/tmp/cars.pdf")
+  msg = emails.generate("automation@example.com", "student@example.com", "Sales summary for last month", '<\n>'.join(summary), "/tmp/cars.pdf")
   emails.send(msg)
 
 if __name__ == "__main__":
